@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListActivity">
+    tools:context=".activity.ListActivity">
     <fragment
-        android:name="com.shreshthsrivastava.happ.ListFragment"
+        android:name="com.shreshthsrivastava.happ.fragment.ListFragment"
         android:id="@+id/list_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

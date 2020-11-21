@@ -1,8 +1,10 @@
-package com.shreshthsrivastava.happ;
+package com.shreshthsrivastava.happ.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.shreshthsrivastava.happ.R;
 
 public class DetailActivity extends AppCompatActivity {
 
