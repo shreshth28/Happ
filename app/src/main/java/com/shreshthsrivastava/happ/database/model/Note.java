@@ -1,4 +1,4 @@
-package com.shreshthsrivastava.happ.model;
+package com.shreshthsrivastava.happ.database.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
