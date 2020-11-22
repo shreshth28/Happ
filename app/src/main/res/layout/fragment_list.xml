@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".fragment.ListFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notes_list_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="fragment 1" />
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>
