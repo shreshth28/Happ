@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Happ">
-        <activity android:name=".activity.DetailActivity"></activity>
+        <activity android:name=".activity.AddNoteActivity" android:parentActivityName=".activity.ListActivity"></activity>
+        <activity android:name=".activity.DetailActivity" />
         <activity android:name=".activity.ListActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
