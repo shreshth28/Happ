@@ -4,13 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DetailActivity">
-
+    android:orientation="horizontal"
+    tools:context=".activity.ListActivity">
     <fragment
+        android:layout_weight="3"
+        android:name="com.shreshthsrivastava.happ.fragment.ListFragment"
+        android:id="@+id/list_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </fragment>
+    <fragment
+        android:layout_weight="1"
         android:name="com.shreshthsrivastava.happ.fragment.DetailFragment"
         android:id="@+id/detail_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </fragment>
-
 </LinearLayout>

@@ -31,6 +31,7 @@ import java.util.List;
 
 public class ListFragment extends Fragment implements NoteAdapter.NoteItemClickListener{
 
+    private boolean mTwoPane;
     public static final int ADD_NOTE_REQUEST=1;
     private ShareDataViewModel shareDataViewModel;
     private RecyclerView notesListRecyclerView;
@@ -50,6 +51,11 @@ public class ListFragment extends Fragment implements NoteAdapter.NoteItemClickL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mTwoPane=getResources().getBoolean(R.bool.isTablet);
+        if(mTwoPane)
+            Toast.makeText(getActivity(),"It Is Tablet",Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(getActivity(),"It Is A Phone",Toast.LENGTH_LONG).show();
         shareDataViewModel=new ViewModelProvider(requireActivity()).get(ShareDataViewModel.class);
         noteAdapter=new NoteAdapter(this);
         layoutManager=new LinearLayoutManager(getActivity());
@@ -84,7 +90,10 @@ public class ListFragment extends Fragment implements NoteAdapter.NoteItemClickL
     @Override
     public void clickListener(Note note) {
         shareDataViewModel.select(note);
-        Intent detailFragmentIntent=new Intent(requireContext(), DetailActivity.class);
-        startActivity(detailFragmentIntent);
+        if(!mTwoPane) {
+            Intent detailFragmentIntent = new Intent(requireContext(), DetailActivity.class);
+            detailFragmentIntent.putExtra("Shared Note",note);
+            startActivity(detailFragmentIntent);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.shreshthsrivastava.happ.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shreshthsrivastava.happ.R;
 import com.shreshthsrivastava.happ.database.model.Note;
@@ -18,7 +21,8 @@ import com.shreshthsrivastava.happ.viewmodel.ShareDataViewModel;
 
 public class DetailFragment extends Fragment {
 
-    private ShareDataViewModel shareDataViewModel;
+    private TextView detailTitleTextView;
+    private TextView detailDescriptionTextView;
     public DetailFragment() {
     }
 
@@ -31,12 +35,20 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        shareDataViewModel=new ViewModelProvider(requireActivity()).get(ShareDataViewModel.class);
-        shareDataViewModel.getSelected().observe(getViewLifecycleOwner(), new Observer<Note>() {
-            @Override
-            public void onChanged(Note note) {
-                
-            }
+        detailTitleTextView=view.findViewById(R.id.detail_title_text_view);
+        detailDescriptionTextView=view.findViewById(R.id.detail_description_text_view);
+        ShareDataViewModel shareDataViewModel=new ViewModelProvider(requireActivity()).get(ShareDataViewModel.class);
+        shareDataViewModel.getSelected().observe(getViewLifecycleOwner(), note -> {
+            Toast.makeText(getActivity(), "Trying "+note.getTitle(), Toast.LENGTH_SHORT).show();
+            detailTitleTextView.setText(note.getTitle());
+            detailDescriptionTextView.setText(note.getDescription());
         });
+        Intent sharedNoteIntent=getActivity().getIntent();
+        if(!getResources().getBoolean(R.bool.isTablet)&&sharedNoteIntent!=null)
+        {
+            Note sharedNote=sharedNoteIntent.getParcelableExtra("Shared Note");
+            detailTitleTextView.setText(sharedNote.getTitle());
+            detailDescriptionTextView.setText(sharedNote.getDescription());
+        }
     }
 }
