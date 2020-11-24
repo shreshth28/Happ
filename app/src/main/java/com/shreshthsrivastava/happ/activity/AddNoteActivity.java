@@ -5,20 +5,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.shreshthsrivastava.happ.R;
+import com.shreshthsrivastava.happ.database.model.Note;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddNoteActivity extends AppCompatActivity {
 
+    private EditText titleEditText;
+    private EditText descriptionEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+        titleEditText=findViewById(R.id.title_edit_text);
+        descriptionEditText=findViewById(R.id.description_edit_text);
         getSupportActionBar().setTitle("Add Note");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -50,7 +60,11 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     private void saveNote() {
-        //Note Creation
+        Intent data=new Intent();
+        String titleText=titleEditText.getText().toString();
+        String descrptionText=descriptionEditText.getText().toString();
+        data.putExtra("Note Object",new Note(titleText,descrptionText,2,new SimpleDateFormat("dd-MM-yyyy").format(new Date())));
+        setResult(RESULT_OK,data);
         finish();
     }
 }

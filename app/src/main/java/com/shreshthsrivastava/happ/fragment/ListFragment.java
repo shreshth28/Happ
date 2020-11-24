@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +20,16 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shreshthsrivastava.happ.R;
 import com.shreshthsrivastava.happ.activity.AddNoteActivity;
+import com.shreshthsrivastava.happ.activity.ListActivity;
 import com.shreshthsrivastava.happ.adapter.NoteAdapter;
 import com.shreshthsrivastava.happ.database.model.Note;
 import com.shreshthsrivastava.happ.viewmodel.NoteViewModel;
 
 import java.util.List;
 
-public class ListFragment extends Fragment {
+public class ListFragment extends Fragment{
 
+    public static final int ADD_NOTE_REQUEST=1;
     private RecyclerView notesListRecyclerView;
     private NoteViewModel noteViewModel;
     private NoteAdapter noteAdapter;
@@ -38,6 +41,7 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
@@ -58,9 +62,21 @@ public class ListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent addNoteIntent=new Intent(requireActivity(), AddNoteActivity.class);
-                startActivity(addNoteIntent);
+                startActivityForResult(addNoteIntent,ADD_NOTE_REQUEST);
             }
         });
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode== ListFragment.ADD_NOTE_REQUEST && resultCode==getActivity().RESULT_OK)
+        {
+            Note note=data.getParcelableExtra("Note Object");
+            noteViewModel.insert(note);
+        }
+    }
+
+
 }
