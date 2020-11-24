@@ -30,12 +30,10 @@ public class NoteViewModel extends AndroidViewModel {
     {
         noteAPI.update(note);
     }
-
     public void delete(Note note)
     {
         noteAPI.delete(note);
     }
-
     public LiveData<List<Note>> getAllNotes()
     {
         return(noteAPI.getAllNotes());

@@ -1,6 +1,8 @@
 package com.shreshthsrivastava.happ.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,10 +18,15 @@ import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
 
+    private NoteItemClickListener noteItemTouchListener;
     private List<Note> notes=new ArrayList<>();
 
-    public NoteAdapter()
+    public NoteAdapter(NoteItemClickListener noteItemTouchListener)
     {
+        this.noteItemTouchListener=noteItemTouchListener;
+    }
+    public interface NoteItemClickListener{
+        void clickListener(Note note);
     }
 
     @NonNull
@@ -41,7 +48,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return notes.size();
     }
 
-    class NoteViewHolder extends RecyclerView.ViewHolder{
+    class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView titleTextView;
         private TextView descriptionTextView;
@@ -49,6 +56,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             super(itemView);
             titleTextView=itemView.findViewById(R.id.title_text_view);
             descriptionTextView=itemView.findViewById(R.id.description_text_view);
+            itemView.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            int item=getAdapterPosition();
+            noteItemTouchListener.clickListener(notes.get(item));
         }
     }
 
@@ -58,4 +73,5 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             this.notes.addAll(notes);
             notifyDataSetChanged();
     }
+
 }

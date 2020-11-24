@@ -27,7 +27,7 @@ import com.shreshthsrivastava.happ.viewmodel.NoteViewModel;
 
 import java.util.List;
 
-public class ListFragment extends Fragment{
+public class ListFragment extends Fragment implements NoteAdapter.NoteItemClickListener{
 
     public static final int ADD_NOTE_REQUEST=1;
     private RecyclerView notesListRecyclerView;
@@ -48,7 +48,7 @@ public class ListFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        noteAdapter=new NoteAdapter();
+        noteAdapter=new NoteAdapter(this);
         layoutManager=new LinearLayoutManager(getActivity());
         notesListRecyclerView=view.findViewById(R.id.notes_list_recycler_view);
         addNoteFloatingActionButton=view.findViewById(R.id.add_note_btn);
@@ -78,5 +78,8 @@ public class ListFragment extends Fragment{
         }
     }
 
-
+    @Override
+    public void clickListener(Note note) {
+        Log.d("Check",note.getDescription());
+    }
 }
