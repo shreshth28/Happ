@@ -20,16 +20,19 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shreshthsrivastava.happ.R;
 import com.shreshthsrivastava.happ.activity.AddNoteActivity;
+import com.shreshthsrivastava.happ.activity.DetailActivity;
 import com.shreshthsrivastava.happ.activity.ListActivity;
 import com.shreshthsrivastava.happ.adapter.NoteAdapter;
 import com.shreshthsrivastava.happ.database.model.Note;
 import com.shreshthsrivastava.happ.viewmodel.NoteViewModel;
+import com.shreshthsrivastava.happ.viewmodel.ShareDataViewModel;
 
 import java.util.List;
 
 public class ListFragment extends Fragment implements NoteAdapter.NoteItemClickListener{
 
     public static final int ADD_NOTE_REQUEST=1;
+    private ShareDataViewModel shareDataViewModel;
     private RecyclerView notesListRecyclerView;
     private NoteViewModel noteViewModel;
     private NoteAdapter noteAdapter;
@@ -41,13 +44,13 @@ public class ListFragment extends Fragment implements NoteAdapter.NoteItemClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        shareDataViewModel=new ViewModelProvider(requireActivity()).get(ShareDataViewModel.class);
         noteAdapter=new NoteAdapter(this);
         layoutManager=new LinearLayoutManager(getActivity());
         notesListRecyclerView=view.findViewById(R.id.notes_list_recycler_view);
@@ -80,6 +83,8 @@ public class ListFragment extends Fragment implements NoteAdapter.NoteItemClickL
 
     @Override
     public void clickListener(Note note) {
-        Log.d("Check",note.getDescription());
+        shareDataViewModel.select(note);
+        Intent detailFragmentIntent=new Intent(requireContext(), DetailActivity.class);
+        startActivity(detailFragmentIntent);
     }
 }
