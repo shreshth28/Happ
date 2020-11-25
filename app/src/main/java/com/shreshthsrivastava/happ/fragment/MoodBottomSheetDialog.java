@@ -1,4 +1,4 @@
-package com.shreshthsrivastava.happ.dialog;
+package com.shreshthsrivastava.happ.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
