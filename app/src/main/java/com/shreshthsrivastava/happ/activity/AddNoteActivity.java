@@ -2,9 +2,11 @@ package com.shreshthsrivastava.happ.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,7 +26,7 @@ public class AddNoteActivity extends AppCompatActivity implements MoodBottomShee
 
     private EditText titleEditText;
     private EditText descriptionEditText;
-
+    private NotificationManagerCompat notificationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,5 @@ public class AddNoteActivity extends AppCompatActivity implements MoodBottomShee
         data.putExtra("Note Object",new Note(titleText,descrptionText,rating,new SimpleDateFormat("dd-MM-yyyy").format(new Date())));
         setResult(RESULT_OK,data);
         finish();
-//        Toast.makeText(this, ""+rating, Toast.LENGTH_SHORT).show();
     }
 }
