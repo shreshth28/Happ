@@ -39,7 +39,6 @@ public class DetailFragment extends Fragment {
         detailDescriptionTextView=view.findViewById(R.id.detail_description_text_view);
         ShareDataViewModel shareDataViewModel=new ViewModelProvider(requireActivity()).get(ShareDataViewModel.class);
         shareDataViewModel.getSelected().observe(getViewLifecycleOwner(), note -> {
-            Toast.makeText(getActivity(), "Trying "+note.getTitle(), Toast.LENGTH_SHORT).show();
             detailTitleTextView.setText(note.getTitle());
             detailDescriptionTextView.setText(note.getDescription());
         });

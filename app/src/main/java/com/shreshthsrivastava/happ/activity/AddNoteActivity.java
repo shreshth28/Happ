@@ -11,14 +11,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.shreshthsrivastava.happ.R;
 import com.shreshthsrivastava.happ.database.model.Note;
+import com.shreshthsrivastava.happ.dialog.MoodBottomSheetDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddNoteActivity extends AppCompatActivity {
+public class AddNoteActivity extends AppCompatActivity implements MoodBottomSheetDialog.MoodItemClickListener{
 
     private EditText titleEditText;
     private EditText descriptionEditText;
@@ -60,11 +62,18 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     private void saveNote() {
+        MoodBottomSheetDialog moodBottomSheetDialog=new MoodBottomSheetDialog((MoodBottomSheetDialog.MoodItemClickListener) this);
+        moodBottomSheetDialog.show(getSupportFragmentManager(),"MoodBottomSheet");
+    }
+
+    @Override
+    public void moodClickListener(int rating) {
         Intent data=new Intent();
         String titleText=titleEditText.getText().toString();
         String descrptionText=descriptionEditText.getText().toString();
-        data.putExtra("Note Object",new Note(titleText,descrptionText,2,new SimpleDateFormat("dd-MM-yyyy").format(new Date())));
+        data.putExtra("Note Object",new Note(titleText,descrptionText,rating,new SimpleDateFormat("dd-MM-yyyy").format(new Date())));
         setResult(RESULT_OK,data);
         finish();
+//        Toast.makeText(this, ""+rating, Toast.LENGTH_SHORT).show();
     }
 }

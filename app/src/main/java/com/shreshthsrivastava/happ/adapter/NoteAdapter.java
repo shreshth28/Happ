@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.shreshthsrivastava.happ.R;
 import com.shreshthsrivastava.happ.database.model.Note;
 
@@ -20,7 +21,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     private NoteItemClickListener noteItemTouchListener;
     private List<Note> notes=new ArrayList<>();
-
+    private String animationData[]={"","angry","embarrased","happy","joy","proud","sad"};
     public NoteAdapter(NoteItemClickListener noteItemTouchListener)
     {
         this.noteItemTouchListener=noteItemTouchListener;
@@ -41,6 +42,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         holder.titleTextView.setText(notes.get(position).getTitle());
         holder.descriptionTextView.setText(notes.get(position).getDescription());
+        holder.lottieAnimationView.setAnimation(animationData[notes.get(position).getRating()]+".json");
+        Log.d("Index Check",notes.get(position).getRating()+"");
     }
 
     @Override
@@ -52,10 +55,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
         private TextView titleTextView;
         private TextView descriptionTextView;
+        private LottieAnimationView lottieAnimationView;
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView=itemView.findViewById(R.id.title_text_view);
             descriptionTextView=itemView.findViewById(R.id.description_text_view);
+            lottieAnimationView=itemView.findViewById(R.id.animation_view);
             itemView.setOnClickListener(this);
         }
 

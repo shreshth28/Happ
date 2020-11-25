@@ -96,4 +96,5 @@ public class ListFragment extends Fragment implements NoteAdapter.NoteItemClickL
             startActivity(detailFragmentIntent);
         }
     }
+
 }
